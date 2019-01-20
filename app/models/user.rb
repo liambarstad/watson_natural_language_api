@@ -1,4 +1,4 @@
 class User < ApplicationRecord
   validates_presence_of :username
-  has_one :token
+  has_one :access_token
 end
