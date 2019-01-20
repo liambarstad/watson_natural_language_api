@@ -13,6 +13,7 @@
 
 .byebug_history
 .ruby-version
+.rspec
 
 Gemfile.lock
 
