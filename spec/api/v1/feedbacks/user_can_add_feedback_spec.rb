@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User can add feedback', type: :request do
   
   it 'with valid credentials' do
-    post 'api/v1/feedbacks', params: { message: 'This is a test' }
+    post '/api/v1/feedbacks', params: { message: 'This is a test' }
 
     expect(response.status).to eq(200)
     expect(response.body[:message]).to eq('This is a test')
