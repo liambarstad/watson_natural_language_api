@@ -3,6 +3,8 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+/spec/examples.txt
+
 /log/*
 /tmp/*
 !/log/.keep
