@@ -8,12 +8,12 @@ class Feedback < ApplicationRecord
   private
 
     def query_watson
-      watson_service = WatsonService.new
+      watson_service = IBMWatsonService.new
       watson_service.add_message(message)
-      set_language
+      set_language(watson_service)
     end
 
-    def set_language
+    def set_language(watson_service)
       if watson_service.language_abbr
         self.language = Language.find_by(abbr: watson_service.language.abbr)
       else
