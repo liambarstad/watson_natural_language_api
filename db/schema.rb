@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_195212) do
+ActiveRecord::Schema.define(version: 2019_01_21_204842) do
 
   create_table "access_tokens", force: :cascade do |t|
     t.string "token"
@@ -25,7 +25,16 @@ ActiveRecord::Schema.define(version: 2019_01_21_195212) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "language_id"
+    t.index ["language_id"], name: "index_feedbacks_on_language_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "abbr"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
