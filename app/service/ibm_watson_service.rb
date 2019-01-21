@@ -5,11 +5,13 @@ class IBMWatsonService
     @message = nil
     @language_abbr = nil
     @language_translator = translator
+    @language_tone_analyzer = tone_analyzer
   end
 
   def add_message(message)
     @message = message
     translate
+    analyze_tone
   end
 
   private
@@ -22,6 +24,14 @@ class IBMWatsonService
       )
     end
 
+    def tone_analyzer
+      IBMWatson::ToneAnalyzerV3.new(
+        version: '2018-05-01',
+        iam_apikey: ENV['watson_tone_analyzer_api_key'],
+        url: 'https://gateway.watsonplatform.net/tone-analyzer/api'
+      )
+    end
+
     def translate
       result = @language_translator.identify(text: @message).result
       main_language = result['languages'][0]
@@ -30,4 +40,7 @@ class IBMWatsonService
       end
     end
 
+    def analyze_tone
+
+    end
 end
