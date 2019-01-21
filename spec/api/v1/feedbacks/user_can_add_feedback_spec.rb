@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'User can add feedback', type: :request do
   
+  before :each do
+    Language.create!(abbr: 'en', name: 'English')
+  end
+
   it 'with valid credentials' do
     token = get_token
     post '/api/v1/feedbacks', params: { token: token, message: 'This is a test' }

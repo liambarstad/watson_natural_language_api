@@ -24,10 +24,9 @@ class IBMWatsonService
 
     def translate
       result = @language_translator.identify(text: @message).result
-      parsed_result = JSON.parse(result)
-      main_language = parsed_result['languages'][0]
+      main_language = result['languages'][0]
       if main_language['confidence'] > 0.8
-        @language_abbr = main_language['language'].split('-')[0]
+        @language_abbr = main_language['language']
       end
     end
 
