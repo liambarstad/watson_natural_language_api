@@ -11,7 +11,11 @@ RSpec.describe 'User can get access token', type: :request do
     expect(response.status).to eq(200)
     expect(body['token']).to_not be(nil)
     expect(body.keys.length).to be(1)
-    #decode jwt and test
+
+    content = JWTService.decode(body['token'], user.api_key)
+    
+    expect(content['id']).to eq(user.id)
+    expect(content['expiry']).to be > Time.now.to_i
   end
 
   it 'with non-existing username' do

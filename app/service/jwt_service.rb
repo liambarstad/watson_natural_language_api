@@ -7,4 +7,9 @@ module JWTService
     AccessToken.new(token: token)
   end
   
+  def self.decode(token, api_key)
+    decoded_content = JWT.decode token, api_key, true, { algorithm: 'HS256' }
+    decoded_content[0]
+  end
+
 end

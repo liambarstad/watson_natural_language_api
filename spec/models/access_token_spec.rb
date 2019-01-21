@@ -16,7 +16,7 @@ RSpec.describe AccessToken, type: :model do
 
       expect(token_attrs['id']).to eq(user.id)
       expect(token_attrs['expiry']).to be > Time.now.to_i
-      expect(token_attrs.keys.length).to eq(3)
+      expect(token_attrs.keys.length).to eq(2)
     end
   end
 end
