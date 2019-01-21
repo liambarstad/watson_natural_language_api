@@ -1,6 +1,7 @@
-class Api::V1::FeedbacksController < ApplicationController
+class Api::V1::FeedbacksController < Api::V1::ApiController
+
   def create
-    @feedback = Feedback.create!(feedback_params)
+    @feedback = current_user.feedbacks.create!(feedback_params)
     render json: @feedback.to_json
   end
 
