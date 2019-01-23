@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin can find all feedbacks with specific language' do
-  
   before :each do
     create(:language, abbr: 'en', name: 'English')
     create(:language, abbr: 'fr', name: 'French')
@@ -14,25 +13,27 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
     let!(:token) { get_token(admin: true) }
 
     it 'with english language' do
-      get '/api/v1/feedbacks', params: { lang: 'en', token: token } 
+      get '/api/v1/feedbacks', params: { language: 'en', token: token } 
 
       body = JSON.parse(response.body)
 
       expect(response.status).to eq(200)
       expect(body.length).to eq(1)
+      expect(body[0]['language']).to eq('en')
     end
 
     it 'with french language' do
-      get '/api/v1/feedbacks', params: { lang: 'fr', token: token } 
+      get '/api/v1/feedbacks', params: { language: 'fr', token: token } 
 
       body = JSON.parse(response.body)
 
       expect(response.status).to eq(200)
       expect(body.length).to eq(1)
+      expect(body[0]['language']).to eq('fr')
     end
 
     it 'with unlisted language' do
-      get '/api/v1/feedbacks', params: { lang: 'nada', token: token } 
+      get '/api/v1/feedbacks', params: { language: 'nada', token: token } 
 
       body = JSON.parse(response.body)
 
@@ -45,7 +46,7 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
 
   it 'with base user token' do
     token = get_token
-    get '/api/v1/feedbacks', params: { lang: 'en', token: token } 
+    get '/api/v1/feedbacks', params: { language: 'en', token: token } 
     
     body = JSON.parse(response.body)
 

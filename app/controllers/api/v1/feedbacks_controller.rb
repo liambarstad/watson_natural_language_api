@@ -1,5 +1,6 @@
 class Api::V1::FeedbacksController < Api::V1::ApiController
   before_action :verify_admin, only: [:index]
+  before_action :validate_search_params, only: [:index]
 
   def index
     @feedbacks = Feedback.search(feedback_search_params)
@@ -19,6 +20,13 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
 
     def feedback_params
       params.permit(:message)
+    end
+
+    def validate_search_params
+      lang = feedback_search_params[:language]
+      unless not lang or Language.find_by(abbr: lang)
+        render status: 404, json: { error: 'Language not listed' }.to_json
+      end
     end
 
 end
