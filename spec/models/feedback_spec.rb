@@ -25,7 +25,7 @@ RSpec.describe Feedback, type: :model do
       end
 
       it 'will determine spanish language on create' do
-        user = User.create!(api_key: 'somestuff')
+        user = create(:user)
         user.feedbacks.create!(message: 'Yo soy el hombre')
         feedback = user.feedbacks.first
 
@@ -42,7 +42,7 @@ RSpec.describe Feedback, type: :model do
       end
 
       it 'will determine happy english tone on create' do
-        user = User.create!(api_key: 'somestuff')
+        user = create(:user)
         user.feedbacks.create!(message: 'I am so happy and full of joy')
         feedback = user.feedbacks.first
 
@@ -51,7 +51,7 @@ RSpec.describe Feedback, type: :model do
       end
 
       it 'will determine sad english tone on create' do
-        user = User.create!(api_key: 'somestuff')
+        user = create(:user)
         user.feedbacks.create!(message: 'I am so filled with sadness, pain, and regret')
         feedback = user.feedbacks.first
 
@@ -60,7 +60,7 @@ RSpec.describe Feedback, type: :model do
       end
 
       it 'will not determine happy french tone on create' do
-        user = User.create!(api_key: 'somestuff')
+        user = create(:user)
         user.feedbacks.create!(message: 'Je suis si heureux et rempli de joie')
         feedback = user.feedbacks.first
 
@@ -68,7 +68,7 @@ RSpec.describe Feedback, type: :model do
       end
 
       it 'will not determine happy spanish tone on create' do
-        user = User.create!(api_key: 'somestuff')
+        user = create(:user)
         user.feedbacks.create!(message: 'Estoy muy feliz y llena de alegría')
         feedback = user.feedbacks.first
 
