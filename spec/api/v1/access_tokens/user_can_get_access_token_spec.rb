@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User can get access token', type: :request do
   
   it 'with existing username' do
-    user = User.create!(api_key: 'somestuff')
+    user = create(:user)
     post '/api/v1/access_tokens', params: { api_key: user.api_key  }
     
     body = JSON.parse(response.body)
