@@ -26,11 +26,9 @@ class Feedback < ApplicationRecord
     end
 
     def set_tone(watson_service)
-=begin
       if watson_service.emotion
-        self.tone = Tone.find_by(emotion: emotion)
+        self.tone = Tone.find_by(emotion: watson_service.emotion)
       end
-=end
     end
 
 end
