@@ -6,6 +6,10 @@ class Feedback < ApplicationRecord
 
   before_validation :query_watson
 
+  def search(attrs={})
+
+  end
+
   private
 
     def query_watson

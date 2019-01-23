@@ -15,4 +15,11 @@ class Api::V1::ApiController < ApplicationController
         render status: 401, json: { error: 'Unauthorized' }.to_json
       end
     end
+
+    def verify_admin
+      unless current_user.admin?
+        render status: 401, json: { error: 'Unauthorized' }.to_json
+      end
+    end
+
 end
