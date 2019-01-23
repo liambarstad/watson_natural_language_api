@@ -4,12 +4,12 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
 
   def index
     @feedbacks = Feedback.search(feedback_search_params)
-    render json: @feedbacks.to_json
+    render json: @feedbacks
   end
 
   def create
     @feedback = current_user.feedbacks.create!(feedback_params)
-    render json: @feedback.to_json
+    render json: @feedback
   end
 
   private
