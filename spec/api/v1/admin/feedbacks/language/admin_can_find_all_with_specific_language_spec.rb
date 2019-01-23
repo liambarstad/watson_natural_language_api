@@ -11,9 +11,7 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
   
   describe 'with correct token' do
 
-    before :each do
-      let!(:token) { get_token(admin: true) }
-    end
+    let!(:token) { get_token(admin: true) }
 
     it 'with english language' do
       get '/api/v1/feedbacks', params: { lang: 'en', token: token } 
