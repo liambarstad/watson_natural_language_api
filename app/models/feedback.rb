@@ -6,7 +6,17 @@ class Feedback < ApplicationRecord
 
   before_validation :query_watson
 
+  def self.search(options={})
+    feedbacks = all
+    feedbacks = feedbacks.search_by_language(options[:language]) if options[:language]
+    feedbacks
+  end
+
   private
+
+    def self.search_by_language(language_abbr)
+      joins(:language).where(languages: { abbr: language_abbr })
+    end
 
     def query_watson
       if message
