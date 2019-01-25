@@ -9,6 +9,17 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
     create(:feedback, language: french)
   end
   
+  it 'with base user token' do
+    token = get_token
+    get '/api/v1/feedbacks', params: { language: 'en', token: token } 
+    
+    body = JSON.parse(response.body)
+
+    expect(response.status).to eq(401)
+    expect(body['error']).to eq('Unauthorized')
+    expect(body.keys.length).to eq(1)
+  end
+
   describe 'with correct token' do
 
     let!(:token) { get_token(admin: true) }
@@ -43,17 +54,6 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
       expect(body.keys.length).to eq(1)
     end
 
-  end
-
-  it 'with base user token' do
-    token = get_token
-    get '/api/v1/feedbacks', params: { language: 'en', token: token } 
-    
-    body = JSON.parse(response.body)
-
-    expect(response.status).to eq(401)
-    expect(body['error']).to eq('Unauthorized')
-    expect(body.keys.length).to eq(1)
   end
 
 end
