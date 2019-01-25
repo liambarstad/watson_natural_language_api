@@ -4,6 +4,7 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
 
   def index
     @feedbacks = Feedback.search(feedback_search_params)
+    log_search
     render json: @feedbacks
   end
 
@@ -26,6 +27,15 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
       validate_language_param
       validate_tone_param
       validate_date_param
+    end
+
+    def log_search
+      Search.create!(
+        resource: 'feedback',
+        ip_address: request.remote_ip,
+        language: Language.find_by(abbr: feedback_search_params[:language]),
+        tone: Tone.find_by(emotion: feedback_search_params[:tone])
+      )
     end
 
     def validate_language_param
