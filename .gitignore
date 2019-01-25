@@ -17,8 +17,6 @@
 .ruby-version
 .rspec
 
-Gemfile.lock
-
 /config/master.key
 
 # Ignore application configuration
