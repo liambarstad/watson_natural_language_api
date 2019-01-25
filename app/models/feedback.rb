@@ -10,6 +10,7 @@ class Feedback < ApplicationRecord
     feedbacks = all
     feedbacks = feedbacks.search_by_language(options[:language]) if options[:language]
     feedbacks = feedbacks.search_by_tone(options[:tone]) if options[:tone]
+    feedbacks = feedbacks.search_by_date(options[:date]) if options[:date]
     feedbacks
   end
 
@@ -21,6 +22,12 @@ class Feedback < ApplicationRecord
 
     def self.search_by_tone(tone)
       joins(:tone).where(tones: { emotion: tone })
+    end
+
+    def self.search_by_date(date_str)
+      date_els = date_str.split('-')
+      date = Time.new(date_els[2], date_els[0], date_els[1])
+      where(created_at: date.beginning_of_day..date.end_of_day)
     end
 
     def query_watson
