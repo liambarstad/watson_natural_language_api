@@ -5,6 +5,7 @@ This API is a simple feedback processing machine where a user or external servic
 The endpoints are as follows:
 
 * POST https://watson-natural-language-api.herokuapp.com/api/v1/access_tokens
+  
   Returns a token which is valid for up to an hour, used to access the other endpoints. 
   Params:
     * api_key (required)
