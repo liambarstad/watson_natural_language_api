@@ -1,7 +1,7 @@
 class Feedback < ApplicationRecord
   validates_presence_of :message
   belongs_to :user, required: true
-  belongs_to :language, required: true
+  belongs_to :language, required: false
   belongs_to :tone, required: false
 
   before_validation :query_watson
@@ -42,14 +42,12 @@ class Feedback < ApplicationRecord
     def set_language(watson_service)
       if watson_service.language_abbr
         self.language = Language.find_by(abbr: watson_service.language_abbr)
-      else
-        self.errors[:language] << 'Language not discernable'
       end
     end
 
     def set_tone(watson_service)
       if watson_service.emotion
-        self.tone = Tone.find_by(emotion: watson_service.emotion)
+        self.tone = Tone.find_or_create_by(emotion: watson_service.emotion)
       end
     end
 

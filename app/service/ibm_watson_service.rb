@@ -15,6 +15,10 @@ class IBMWatsonService
     analyze_tone
   end
 
+  def get_identifiable_languages
+    @language_translator.list_identifiable_languages.result['languages']
+  end
+
   private
 
     def translator
