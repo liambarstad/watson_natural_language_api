@@ -7,11 +7,14 @@ The endpoints are as follows:
 * POST https://watson-natural-language-api.herokuapp.com/api/v1/access_tokens
   
   Returns a token which is valid for up to an hour, used to access the other endpoints. 
+  
   Params:
     * api_key (required)
       
 * POST https://watson-natural-language-api.herokuapp.com/api/v1/feedbacks
+  
   Add a feedback to the system to be analyzed
+  
   Params:
     * api_key (required)
     * token (required)
@@ -22,6 +25,7 @@ The endpoints are as follows:
   Admin paths are only accessible if the api key and token given are for an admin-level user. These paths include analytics and searching.
   
 * GET https://watson-natural-language-api.herokuapp.com/api/v1/feedbacks
+  
   Params:
     * api_key (required)
     * token (required)
@@ -32,6 +36,7 @@ The endpoints are as follows:
     
 ### Accepted Languages:
 Current with Watson version "2018-05-01"
+
 * "af": Afrikaans
 * "ar": Arabic
 * "ba": Bashkir
