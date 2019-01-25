@@ -16,7 +16,8 @@ RSpec.describe 'Admin can find all feedbacks by day' do
 
   it 'with base user token' do
     token = get_token
-    get '/api/v1/feedbacks', params: { token: token, date: Time.now.strftime('%m-%d-%y') }
+    api_key = get_api_key(token)
+    get '/api/v1/feedbacks', params: { api_key: api_key, token: token, date: Time.now.strftime('%m-%d-%y') }
 
     body = JSON.parse(response.body)
     expect(response.status).to eq(401)
@@ -27,9 +28,10 @@ RSpec.describe 'Admin can find all feedbacks by day' do
   describe 'with correct token' do
 
     let!(:token) { get_token(admin: true) }
+    let!(:api_key) { get_api_key(token) }
 
     it 'with valid date' do
-      get '/api/v1/feedbacks', params: { token: token, date: Time.now.strftime('%m-%d-%Y') }
+      get '/api/v1/feedbacks', params: { api_key: api_key, token: token, date: Time.now.strftime('%m-%d-%Y') }
 
       body = JSON.parse(response.body)
 
@@ -38,7 +40,7 @@ RSpec.describe 'Admin can find all feedbacks by day' do
     end
 
     it 'with invalid date' do
-      get '/api/v1/feedbacks', params: { token: token, date: '22-43-1002' }
+      get '/api/v1/feedbacks', params: { api_key: api_key, token: token, date: '22-43-1002' }
 
       body = JSON.parse(response.body)
 
