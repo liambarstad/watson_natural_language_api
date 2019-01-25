@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_020814) do
+ActiveRecord::Schema.define(version: 2019_01_25_195625) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string "token"
@@ -39,6 +42,17 @@ ActiveRecord::Schema.define(version: 2019_01_23_020814) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "searches", force: :cascade do |t|
+    t.string "resource"
+    t.string "ip_address"
+    t.bigint "language_id"
+    t.bigint "tone_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_searches_on_language_id"
+    t.index ["tone_id"], name: "index_searches_on_tone_id"
+  end
+
   create_table "tones", force: :cascade do |t|
     t.string "emotion"
     t.datetime "created_at", null: false
@@ -52,4 +66,6 @@ ActiveRecord::Schema.define(version: 2019_01_23_020814) do
     t.integer "role", default: 0
   end
 
+  add_foreign_key "searches", "languages"
+  add_foreign_key "searches", "tones"
 end
