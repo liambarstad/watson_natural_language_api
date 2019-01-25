@@ -1,6 +1,7 @@
 class Api::V1::FeedbacksController < Api::V1::ApiController
   before_action :verify_admin, only: [:index]
-  before_action :validate_search_params, only: [:index]
+  before_action :validate_language_param, only: [:index]
+  before_action :validate_tone_param, only: [:index]
 
   def index
     @feedbacks = Feedback.search(feedback_search_params)
@@ -15,17 +16,24 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
   private
 
     def feedback_search_params
-      params.permit(:language)
+      params.permit(:language, :tone)
     end
 
     def feedback_params
       params.permit(:message)
     end
 
-    def validate_search_params
+    def validate_language_param
       lang = feedback_search_params[:language]
       unless not lang or Language.find_by(abbr: lang)
-        render status: 404, json: { error: 'Language not listed' }.to_json
+        display_error 404, 'Language not listed'
+      end
+    end
+
+    def validate_tone_param
+      tone = feedback_search_params[:tone]
+      unless not tone or Tone.find_by(emotion: tone)
+        display_error 404, 'Tone not listed'
       end
     end
 

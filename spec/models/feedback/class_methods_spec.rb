@@ -3,15 +3,12 @@ require 'rails_helper'
 RSpec.describe Feedback, type: :model do
 
   describe 'Class Methods' do
-    before :each do
-      create(:language, abbr: 'en', name: 'English')
-      create(:language, abbr: 'fr', name: 'French')
-    end
+    let!(:english) { create(:language, abbr: 'en', name: 'English') }
+    let!(:french) { create(:language, abbr: 'fr', name: 'French') }
 
     describe 'search' do
-
       it 'with no params' do
-        create_list(:english_feedback, 4)
+        create_list(:feedback, 4, language: english)
         feedbacks = Feedback.search
 
         expect(feedbacks.length).to eq(4)
@@ -19,8 +16,8 @@ RSpec.describe Feedback, type: :model do
 
       describe 'by language' do
         before :each do
-          create_list(:english_feedback, 2)
-          create(:french_feedback)
+          create_list(:feedback, 2, language: english)
+          create(:feedback, language: french)
         end
 
         it 'with valid language' do

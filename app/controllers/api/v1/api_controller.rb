@@ -1,6 +1,10 @@
 class Api::V1::ApiController < ApplicationController
   before_action :verify_user
 
+  def display_error(code, message)
+    render status: code, json: { error: message }.to_json
+  end
+
   private
     
     def current_user

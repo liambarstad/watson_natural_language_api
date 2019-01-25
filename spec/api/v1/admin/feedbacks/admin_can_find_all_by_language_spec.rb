@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin can find all feedbacks with specific language' do
+  let!(:english) { create(:language, abbr: 'en', name: 'English') }
+  let!(:french) { create(:language, abbr: 'fr', name: 'French') }
+
   before :each do
-    create(:language, abbr: 'en', name: 'English')
-    create(:language, abbr: 'fr', name: 'French')
-    create(:english_feedback)
-    create(:french_feedback)
+    create(:feedback, language: english)
+    create(:feedback, language: french)
   end
   
   describe 'with correct token' do

@@ -22,8 +22,8 @@ class Feedback < ApplicationRecord
       if message
         watson_service = IBMWatsonService.new
         watson_service.add_message(message)
-        set_language(watson_service)
-        set_tone(watson_service)
+        set_language(watson_service) unless language
+        set_tone(watson_service) unless tone
       end
     end
 

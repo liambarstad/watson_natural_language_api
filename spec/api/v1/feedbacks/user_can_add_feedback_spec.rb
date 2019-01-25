@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User can add feedback', type: :request do
   
   before :each do
-    Language.create!(abbr: 'en', name: 'English')
+    create(:language, abbr: 'en', name: 'English')
   end
 
   it 'with valid credentials' do

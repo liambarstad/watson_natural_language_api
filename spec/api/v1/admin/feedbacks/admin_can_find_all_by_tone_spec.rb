@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin can find all feedbacks with specific tone' do
+  let!(:english) { create(:language, abbr: 'en', name: 'English') }
+  let!(:french) { create(:language, abbr: 'fr', name: 'French') }
+  let!(:joy) { create(:tone, emotion: 'joy') }
+  let!(:sadness) { create(:tone, emotion: 'sadness') }
+
   before :each do
-    create(:tone, emotion: 'joy')
-    create(:tone, emotion: 'sadness')
-    create(:joyful_feedback)
-    create(:sad_feedback)
+    create(:feedback, language: english, tone: joy)
+    create(:feedback, language: english, tone: sadness)
+    create(:feedback, language: french, tone: sadness)
   end
 
   describe 'with correct token' do
@@ -28,8 +32,19 @@ RSpec.describe 'Admin can find all feedbacks with specific tone' do
       body = JSON.parse(response.body)
 
       expect(response.status).to eq(200)
-      expect(body.length).to eq(1)
+      expect(body.length).to eq(2)
       expect(body[0]['tone']).to eq('sadness')
+      expect(body[1]['tone']).to eq('sadness')
+    end
+
+    it 'with unlisted tone' do
+      get '/api/v1/feedbacks', params: { tone: 'haughty', token: token }
+
+      body = JSON.parse(response.body)
+
+      expect(response.status).to eq(404)
+      expect(body['error']).to eq('Tone not listed')
+      expect(body.keys.length).to eq(1)
     end
   end
 
