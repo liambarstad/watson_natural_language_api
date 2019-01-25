@@ -4,9 +4,9 @@ RSpec.describe Feedback, type: :model do
 
   describe 'Callbacks' do
     before :each do
-      Language.create!(abbr: 'en', name: 'English') 
-      Language.create!(abbr: 'es', name: 'Spanish') 
-      Language.create!(abbr: 'fr', name: 'French')
+      create(:language, abbr: 'en', name: 'English') 
+      create(:language, abbr: 'es', name: 'Spanish') 
+      create(:language, abbr: 'fr', name: 'French')
     end
 
     describe 'languages' do

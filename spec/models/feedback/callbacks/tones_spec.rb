@@ -4,15 +4,15 @@ RSpec.describe Feedback, type: :model do
 
   describe 'Callbacks' do
     before :each do
-      Language.create!(abbr: 'en', name: 'English') 
-      Language.create!(abbr: 'es', name: 'Spanish') 
-      Language.create!(abbr: 'fr', name: 'French')
+      create(:language, abbr: 'en', name: 'English') 
+      create(:language, abbr: 'es', name: 'Spanish') 
+      create(:language, abbr: 'fr', name: 'French')
     end
 
     describe 'tones' do
       before :each do
-        Tone.create!(emotion: 'joy')
-        Tone.create!(emotion: 'sadness')
+        create(:tone, emotion: 'joy')
+        create(:tone, emotion: 'sadness')
       end
 
       it 'will determine happy english tone on create' do
