@@ -9,6 +9,7 @@ class Feedback < ApplicationRecord
   def self.search(options={})
     feedbacks = all
     feedbacks = feedbacks.search_by_language(options[:language]) if options[:language]
+    feedbacks = feedbacks.search_by_tone(options[:tone]) if options[:tone]
     feedbacks
   end
 
@@ -16,6 +17,10 @@ class Feedback < ApplicationRecord
 
     def self.search_by_language(language_abbr)
       joins(:language).where(languages: { abbr: language_abbr })
+    end
+
+    def self.search_by_tone(tone)
+      joins(:tone).where(tones: { emotion: tone })
     end
 
     def query_watson
