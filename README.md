@@ -32,7 +32,37 @@ The endpoints are as follows:
     * language (optional): the abbreviated language to search by, consistent with the list of watson's list of currently discernable languages listed below.
     * tone (optional): the name of the tone to search by, e.g. "joy", "sadness", "confident"
     * date (optional): set to scope the records by a specific day. The date must be set in the format "dd-mm-yyyy"
-    
+
+### Deploying locally
+
+Dependencies:
+* Ruby 2.4x
+* Rails 5x
+* PostgreSQL v. 10.5
+
+Clone:
+'''
+git clone git@github.com:liambarstad/watson_natural_language_api.git
+cd ./watson_natural_language_api
+'''
+
+Then you will need to create an application.yml file by installing figaro, where you can put your watson api keys:
+'''
+bundle install
+bundle exec figaro install
+'''
+
+'''
+rake db:create
+rake db:migrate
+rake db:seed
+rails s
+'''
+
+In order to run test suite:
+'''
+rspec
+'''
     
 ### Accepted Languages:
 Current with Watson version "2018-05-01"
