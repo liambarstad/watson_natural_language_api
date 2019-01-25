@@ -41,28 +41,40 @@ Dependencies:
 * PostgreSQL v. 10.5
 
 Clone:
-'''
+`
 git clone git@github.com:liambarstad/watson_natural_language_api.git
 cd ./watson_natural_language_api
-'''
+`
 
 Then you will need to create an application.yml file by installing figaro, where you can put your watson api keys:
-'''
+`
 bundle install
 bundle exec figaro install
-'''
+`
 
-'''
+Go to https://cloud.ibm.com/ to register API keys for Tone Analyzer and Language Translator APIs. Once you have registered, navigate to config/application.yml and add:
+`
+development:
+  watson_translator_api_key: << translator key >>
+  watson_tone_analyzer_api_key: << tone analyzer key >>
+`
+
+Then:
+`
 rake db:create
 rake db:migrate
 rake db:seed
+`
+
+Finally, to run locally:
+`
 rails s
-'''
+`
 
 In order to run test suite:
-'''
+`
 rspec
-'''
+`
     
 ### Accepted Languages:
 Current with Watson version "2018-05-01"
