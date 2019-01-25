@@ -16,7 +16,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  config.include AccessTokenHelper, type: :request
+  config.include AuthenticationHelper, type: :request
 
   config.include FactoryBot::Syntax::Methods
 

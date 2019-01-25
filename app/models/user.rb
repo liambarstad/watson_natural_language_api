@@ -6,7 +6,8 @@ class User < ApplicationRecord
   enum role: [:default, :admin]
 
   def generate_access_token
-    self.access_token = JWTService.encode_token(id, api_key)
+    token = JWTService.encode_token(id, api_key)
+    self.access_token = AccessToken.new(token: token)
     save!
   end
 

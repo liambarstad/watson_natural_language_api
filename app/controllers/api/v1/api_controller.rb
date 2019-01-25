@@ -3,22 +3,25 @@ class Api::V1::ApiController < ApplicationController
 
   private
     
+    def auth_params
+      params.permit(:token, :api_key)
+    end
+    
     def current_user
       @current_user
     end
 
     def verify_user
-      token = AccessToken.find_by(token: params[:token])
-      if token
-        @current_user ||= token.user
-      else
-        render status: 401, json: { error: 'Unauthorized' }.to_json
+      payload = JWTService.decode(auth_params[:token], auth_params[:api_key])
+      @current_user ||= User.find_by(id: payload['id'])
+      unless current_user
+        display_error 401, 'Unauthorized' 
       end
     end
 
     def verify_admin
       unless current_user.admin?
-        render status: 401, json: { error: 'Unauthorized' }.to_json
+        display_error 401, 'Unauthorized'
       end
     end
 

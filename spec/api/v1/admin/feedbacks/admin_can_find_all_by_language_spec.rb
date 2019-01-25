@@ -11,7 +11,8 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
   
   it 'with base user token' do
     token = get_token
-    get '/api/v1/feedbacks', params: { language: 'en', token: token } 
+    api_key = get_api_key(token)
+    get '/api/v1/feedbacks', params: { language: 'en', token: token, api_key: api_key } 
     
     body = JSON.parse(response.body)
 
@@ -23,9 +24,10 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
   describe 'with correct token' do
 
     let!(:token) { get_token(admin: true) }
+    let!(:api_key) { get_api_key(token) }
 
     it 'with english language' do
-      get '/api/v1/feedbacks', params: { language: 'en', token: token } 
+      get '/api/v1/feedbacks', params: { language: 'en', token: token, api_key: api_key } 
 
       body = JSON.parse(response.body)
 
@@ -35,7 +37,7 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
     end
 
     it 'with french language' do
-      get '/api/v1/feedbacks', params: { language: 'fr', token: token } 
+      get '/api/v1/feedbacks', params: { language: 'fr', token: token, api_key: api_key } 
 
       body = JSON.parse(response.body)
 
@@ -45,7 +47,7 @@ RSpec.describe 'Admin can find all feedbacks with specific language' do
     end
 
     it 'with unlisted language' do
-      get '/api/v1/feedbacks', params: { language: 'nada', token: token } 
+      get '/api/v1/feedbacks', params: { language: 'nada', token: token, api_key: api_key } 
 
       body = JSON.parse(response.body)
 
